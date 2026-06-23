@@ -1,0 +1,16 @@
+{
+  "dart.flutterSdkPath": "/Users/sumit/Downloads/flutter",
+  "dart.sdkPath": "/Users/sumit/Downloads/flutter/bin/cache/dart-sdk",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "editor.suggest.showWords": true,
+  "dart.completeFunctionCalls": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggest.showIcons": true,
+  "editor.parameterHints.enabled": true
+}
