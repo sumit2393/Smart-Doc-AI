@@ -13,12 +13,12 @@ void loadAll(){
   state =_repository.getAll();
 }
 
-Futture<void> save(ScanRecord record) async{
+Future<void> save(ScanRecord record) async {
   await _repository.save(record);
   loadAll();
 }
 
-Future<void> delete(ScanRecord record) async{
+Future<void> delete(ScanRecord record) async {
   await _repository.delete(record);
   loadAll();
 }

@@ -7,10 +7,10 @@ class GeminiApiService {
   final String _apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
   static const String _baseUrl = 
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
-}
-Future<String> generateContent(String prompt) async {
-  final response = await http.post(
-    Uri.parse('$_baseUrl?key=$_apiKey'),
+
+  Future<String> generateContent(String prompt) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl?key=$_apiKey'),
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode({
       'contents': [

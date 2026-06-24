@@ -5,21 +5,33 @@ import '../../providers/ai_provider.dart';
 import '../../models/scan_record.dart';
 import '../ai_analysis/ai_analysis_screen.dart';
 
-class OcrResultScreen extends StatelessWidget {
+class OcrResultScreen extends ConsumerWidget {
   const OcrResultScreen({super.key});
 
-  final ocrState= ref.watch(ocrProvider);
-  final selectedMode= ref.watch(selectedModeProvider);
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ocrState = ref.watch(ocrProvider);
+    final selectedMode = ref.watch(selectedModeProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Extracted Text'),
-         backgroundColor: const Color(0xFF6C63FF),
+        backgroundColor: const Color(0xFF6C63FF),
         foregroundColor: Colors.white,
       ),
       body: _buildBody(context, ref, ocrState, selectedMode),
+    );
+  }
+
+  void _analyze(
+    BuildContext context,
+    WidgetRef ref,
+    OcrState ocrState,
+    ScanMode selectedMode,
+  ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => AiAnalysisScreen()),
     );
   }
 
@@ -42,7 +54,9 @@ class OcrResultScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: const Color(0xFFE0E0E0)),
           ),
-          child: Column(
+          child: 
+        
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -106,6 +120,8 @@ class OcrResultScreen extends StatelessWidget {
         ),
 
         const SizedBox(height: 32),
+      
+
 
         // Analyze button
         ElevatedButton.icon(
@@ -126,4 +142,5 @@ class OcrResultScreen extends StatelessWidget {
       ],
     ),
   );
+}
 }

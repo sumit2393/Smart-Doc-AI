@@ -1,6 +1,6 @@
 {
-  "dart.flutterSdkPath": "/Users/sumit/Downloads/flutter",
-  "dart.sdkPath": "/Users/sumit/Downloads/flutter/bin/cache/dart-sdk",
+  "dart.flutterSdkPath": "/Users/sumit/development/flutter",
+  "dart.sdkPath": "/Users/sumit/development/flutter/bin/cache/dart-sdk",
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,

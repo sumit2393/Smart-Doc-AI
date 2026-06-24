@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../services/gemini_api_service.dart';
 import '../repositories/gemini_repository.dart';
 import '../models/scan_record.dart';
 
