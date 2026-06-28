@@ -1,7 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../repositories/gemini_repository.dart';
+import '../core/api/groq_api_service.dart';
+import '../repositories/groq_repository.dart';   // ← groq
 import '../models/scan_record.dart';
 
+// ─── Service Provider ──────────────────────────────────────
+final groqServiceProvider = Provider<GroqApiService>((ref) {
+  return GroqApiService();
+});
+
+// ─── Repository Provider ───────────────────────────────────
+final groqRepositoryProvider = Provider<GroqRepository>((ref) {
+  return GroqRepository(ref.read(groqServiceProvider));
+});
+
+// ─── Selected Mode ─────────────────────────────────────────
+final selectedModeProvider = StateProvider<ScanMode>(
+  (ref) => ScanMode.summarize,
+);
+
+// ─── State ─────────────────────────────────────────────────
 enum AiStatus { idle, loading, success, error }
 
 class AiState {
@@ -19,6 +36,7 @@ class AiState {
 
   bool get isLoading => status == AiStatus.loading;
   bool get hasResult => result.trim().isNotEmpty;
+  bool get isDone => status == AiStatus.success;
 
   AiState copyWith({
     AiStatus? status,
@@ -35,10 +53,11 @@ class AiState {
   }
 }
 
+// ─── Notifier ──────────────────────────────────────────────
 class AiNotifier extends StateNotifier<AiState> {
   AiNotifier(this._repository) : super(const AiState());
 
-  final GeminiRepository _repository;
+  final GroqRepository _repository;
 
   Future<void> analyze(String ocrText, ScanMode mode) async {
     state = state.copyWith(status: AiStatus.loading, mode: mode);
@@ -57,23 +76,10 @@ class AiNotifier extends StateNotifier<AiState> {
     }
   }
 
-  void reset() {
-    state = const AiState();
-  }
+  void reset() => state = const AiState();
 }
 
-final geminiServiceProvider = Provider<GeminiApiService>((ref) {
-  return GeminiApiService();
-});
-
-final geminiRepositoryProvider = Provider<GeminiRepository>((ref) {
-  return GeminiRepository(ref.read(geminiServiceProvider));
-});
-
-final selectedModeProvider = StateProvider<ScanMode>((ref) {
-  return ScanMode.summarize;
-});
-
+// ─── Provider ──────────────────────────────────────────────
 final aiProvider = StateNotifierProvider<AiNotifier, AiState>((ref) {
-  return AiNotifier(ref.read(geminiRepositoryProvider));
+  return AiNotifier(ref.read(groqRepositoryProvider));
 });

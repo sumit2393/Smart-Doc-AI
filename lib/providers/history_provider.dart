@@ -27,7 +27,7 @@ Future<void> clearAll() async{
   loadAll();
 }
 }
-final historyRepositoryProvider = Provider<HistoryRepository>((ref) {
+final historyRepositoryProvider = Provider<HistoryRepository> ((ref) {
   final box = Hive.box<ScanRecord>('scan_records');
   return HistoryRepository(box);
 });
