@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:smart_doc_ai/features/home/home_screen.dart';
 import 'package:smart_doc_ai/features/home/main_screen.dart';
@@ -16,6 +18,8 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _fadeController;
   late AnimationController _scanController;
   late AnimationController _textController;
+  Timer? _textAnimationTimer;
+  Timer? _navigationTimer;
 
   // Animations
   late Animation<double> _pulseAnimation;
@@ -77,15 +81,15 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     // Text animation 600ms baad shuru ho
-    Future.delayed(const Duration(milliseconds: 600), () {
+    _textAnimationTimer = Timer(const Duration(milliseconds: 600), () {
       if (mounted) _textController.forward();
     });
   }
 
   // 3 second baad MainScreen pe jao
   Future<void> _navigateToMain() async {
-    await Future.delayed(const Duration(milliseconds: 3000));
-    if (mounted) {
+    _navigationTimer = Timer(const Duration(milliseconds: 3000), () {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
@@ -96,11 +100,13 @@ class _SplashScreenState extends State<SplashScreen>
           transitionDuration: const Duration(milliseconds: 500),
         ),
       );
-    }
+    });
   }
 
   @override
   void dispose() {
+    _textAnimationTimer?.cancel();
+    _navigationTimer?.cancel();
     _pulseController.dispose();
     _fadeController.dispose();
     _scanController.dispose();
@@ -264,6 +270,7 @@ class _LoadingDotsState extends State<_LoadingDots>
     with TickerProviderStateMixin {
   late List<AnimationController> _controllers;
   late List<Animation<double>> _animations;
+  late List<Timer> _dotTimers;
 
   @override
   void initState() {
@@ -282,16 +289,23 @@ class _LoadingDotsState extends State<_LoadingDots>
       );
     }).toList();
 
+    _dotTimers = [];
+
     // Staggered — one by one bounce animation
     for (int i = 0; i < 3; i++) {
-      Future.delayed(Duration(milliseconds: i * 200), () {
-        if (mounted) _controllers[i].repeat(reverse: true);
-      });
+      _dotTimers.add(
+        Timer(Duration(milliseconds: i * 200), () {
+          if (mounted) _controllers[i].repeat(reverse: true);
+        }),
+      );
     }
   }
 
   @override
   void dispose() {
+    for (final timer in _dotTimers) {
+      timer.cancel();
+    }
     for (final c in _controllers) {
       c.dispose();
     }
