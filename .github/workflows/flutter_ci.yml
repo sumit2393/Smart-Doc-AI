@@ -19,7 +19,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.44.4'
           channel: 'stable'
           cache: true
 
@@ -43,7 +43,7 @@ jobs:
   build_apk:
     name: Build APK
     runs-on: ubuntu-latest
-    needs: analyze_and_test  # analyze pass hone ke baad hi build hoga
+    needs: analyze_and_test
 
     steps:
       - name: Checkout code
@@ -52,7 +52,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.0'
+          flutter-version: '3.44.4'
           channel: 'stable'
           cache: true
 
