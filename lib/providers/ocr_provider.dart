@@ -48,7 +48,7 @@ class OcrNotifier extends StateNotifier<OcrState> {
   Future<void> pickAndExtract(ImageSource source) async {
     try {
       state = state.copyWith(status: OcrStatus.picking);
-      final pickedFile = await _picker.pickImage(source: source);
+      final pickedFile = await _picker.pickImage(source: source,imageQuality: 70,maxHeight: 1500,maxWidth: 1500);
       if (pickedFile == null) {
         state = state.copyWith(status: OcrStatus.idle);
         return;

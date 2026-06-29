@@ -7,7 +7,9 @@ class OcrRepository {
 
 Future<String> extractText(File imageFile) async{
   try{
-  final text = await _ocrService.extractText(imageFile);
+  final text = await _ocrService.extractText(imageFile).timeout(const Duration(seconds: 30), onTimeout: () {
+    throw Exception('OCR processing timed out. Please try again.');
+  });
   if(text.trim().isEmpty){
     throw Exception('No text found in the image.');
   }

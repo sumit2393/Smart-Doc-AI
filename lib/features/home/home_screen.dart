@@ -33,7 +33,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       curve: Curves.easeIn,
     );
 
-    // Pulse animation — icon ke liye
+    // Pulse animation — icon 
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
