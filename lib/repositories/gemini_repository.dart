@@ -1,4 +1,3 @@
-import '../core/api/gemini_api_service.dart';
 import '../models/scan_record.dart';
 
 class GeminiRepository {
