@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:smart_doc_ai/features/home/home_screen.dart';
 import 'package:smart_doc_ai/features/home/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -57,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _fadeController.forward();
 
-    // 3. Scan line — upar se neeche
+    // 3. Scan line
     _scanController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1800),
@@ -86,15 +85,15 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
-  // 3 second baad MainScreen pe jao
   Future<void> _navigateToMain() async {
     _navigationTimer = Timer(const Duration(milliseconds: 3000), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const HomeScreen(),
-          transitionsBuilder: (_, animation, __, child) {
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const MainScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
           transitionDuration: const Duration(milliseconds: 500),
@@ -138,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen>
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            const Color(0xFF6C63FF).withOpacity(0.3),
+                            const Color(0xFF6C63FF).withValues(alpha: 0.3),
                             Colors.transparent,
                           ],
                         ),
@@ -161,50 +160,51 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF6C63FF).withOpacity(0.5),
+                            color:
+                                const Color(0xFF6C63FF).withValues(alpha: 0.5),
                             blurRadius: 30,
                             spreadRadius: 5,
                           ),
                         ],
                       ),
-                  child: ClipOval(
-  child: Stack(
-    alignment: Alignment.center,
-    children: [
-      // App icon image
-      Image.asset(
-        'assets/icons/app_icon.png',
-        width: 80,
-        height: 80,
-        fit: BoxFit.contain,
-      ),
+                      child: ClipOval(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // App icon image
+                            Image.asset(
+                              'assets/icons/app_icon.png',
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.contain,
+                            ),
 
-      // Scan line animation — yeh waise hi rahega
-      AnimatedBuilder(
-        animation: _scanAnimation,
-        builder: (context, _) {
-          return Positioned(
-            top: 130 * _scanAnimation.value,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 2,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.transparent,
-                    Colors.white.withOpacity(0.8),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    ],
-  ),
-),
+                            // Scan line animation — yeh waise hi rahega
+                            AnimatedBuilder(
+                              animation: _scanAnimation,
+                              builder: (context, _) {
+                                return Positioned(
+                                  top: 130 * _scanAnimation.value,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.white.withValues(alpha: 0.8),
+                                          Colors.transparent,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -319,7 +319,7 @@ class _LoadingDotsState extends State<_LoadingDots>
       children: List.generate(3, (i) {
         return AnimatedBuilder(
           animation: _animations[i],
-          builder: (_, __) {
+          builder: (context, ref) {
             return Transform.translate(
               offset: Offset(0, _animations[i].value),
               child: Container(
@@ -328,8 +328,12 @@ class _LoadingDotsState extends State<_LoadingDots>
                 height: 8,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF6C63FF).withOpacity(
-                    i == 0 ? 1.0 : i == 1 ? 0.7 : 0.4,
+                  color: const Color(0xFF6C63FF).withValues(
+                    alpha: i == 0
+                        ? 1.0
+                        : i == 1
+                            ? 0.7
+                            : 0.4,
                   ),
                 ),
               ),

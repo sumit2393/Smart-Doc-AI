@@ -81,3 +81,6 @@ jobs:
           name: release-apk
           path: build/app/outputs/flutter-apk/*.apk
           retention-days: 7
+
+      - name: Analyze code
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings

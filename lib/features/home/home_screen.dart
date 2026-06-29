@@ -126,7 +126,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF6C63FF).withOpacity(0.5),
+                      color: const Color(0xFF6C63FF).withValues(alpha:0.5),
                       blurRadius: 30,
                       spreadRadius: 5,
                     ),
@@ -233,9 +233,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       Container(
         padding: const EdgeInsets.fromLTRB(12, 12, 36, 12),
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.1),
+          color: Colors.red.withValues(alpha:0.1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.red.withOpacity(0.3)),
+          border: Border.all(color: Colors.red.withValues(alpha:0.3)),
         ),
         child: Row(
           children: [
@@ -284,7 +284,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           color: const Color(0xFF1A1F3C),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: const Color(0xFF6C63FF).withOpacity(0.2),
+            color: const Color(0xFF6C63FF).withValues(alpha:0.2),
           ),
         ),
         child: Column(
@@ -332,7 +332,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF6C63FF).withOpacity(0.4),
+              color: const Color(0xFF6C63FF).withValues(alpha:0.4),
               blurRadius: 15,
               offset: const Offset(0, 6),
             ),
@@ -372,7 +372,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: const Color(0xFF6C63FF).withOpacity(0.5),
+            color: const Color(0xFF6C63FF).withValues(alpha:0.5),
           ),
         ),
         child: Row(

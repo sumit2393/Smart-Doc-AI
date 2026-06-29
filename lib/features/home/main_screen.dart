@@ -33,7 +33,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           color: const Color(0xFF1A1F3C),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF6C63FF).withOpacity(0.2),
+              color: const Color(0xFF6C63FF).withValues(alpha:0.2),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),

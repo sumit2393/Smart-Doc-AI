@@ -8,7 +8,7 @@ void main() {
 
   testWidgets('launches the app and shows the splash branding', (tester) async {
     await tester.pumpWidget(const ProviderScope(child: MyApp()));
-    await tester.pumpAndSettle(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('Smart Doc AI'), findsOneWidget);
     expect(find.text('Scan • Extract • Analyze'), findsOneWidget);
